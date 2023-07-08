@@ -30,6 +30,7 @@ function displayTemperature(response) {
   let windElement = document.querySelector("#wind");
 
   let dateElement = document.querySelector("#date");
+  let iconElement = document.querySelector("#icon");
 
   cityElement.innerHTML = response.data.name;
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
@@ -37,9 +38,14 @@ function displayTemperature(response) {
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
   dateElement.innerHTML = formartDate(response.data.dt * 1000);
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
 let apikey = "3be575b21bded152f68b8c7549600fd8";
-let apiurl = `https://api.openweathermap.org/data/2.5/weather?q=Paris&appid=${apikey}&units=metric`;
+let apiurl = `https://api.openweathermap.org/data/2.5/weather?q=Lisbon&appid=${apikey}&units=metric`;
 console.log(apiurl);
 axios.get(apiurl).then(displayTemperature);
